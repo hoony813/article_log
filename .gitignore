@@ -1,0 +1,9 @@
+
+.idea/workspace.xml
+.idea/vcs.xml
+*.xlsx
+*.xls
+venv/
+.idea/
+*.parquet
+*.zip
