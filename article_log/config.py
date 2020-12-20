@@ -12,4 +12,6 @@ class ArticleLogConfig(object):
 
     UPLOAD_FOLDER = 'resource/uplooad/'
 
+    DB_LOG_FLAG = 'True'
+
 

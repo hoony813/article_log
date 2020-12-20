@@ -12,4 +12,12 @@ def create_app():
     flask_bcrypt = Bcrypt()
     flask_bcrypt.init_app(app)
 
+    from article_log.controller import login_page
+
+    from article_log.article_log_blueprint import article_log_blueprint
+
+    app.register_blueprint(article_log_blueprint)
+
+    return app
+
 
