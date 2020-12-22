@@ -21,7 +21,7 @@ class DB:
         from article_log.model import user
 
         from article_log.model import Base
-        Base.metadata.creae_all(bind=DB.__engine)
+        Base.metadata.create_all(bind=DB.__engine)
 
 
 dao = None

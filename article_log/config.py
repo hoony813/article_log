@@ -14,4 +14,11 @@ class ArticleLogConfig(object):
 
     DB_LOG_FLAG = 'True'
 
+    LOG_LEVEL = 'debug'
+
+    LOG_FILE_PATH = 'resource/log/articlelog.log'
+
+    SESSION_COOKIE_NAME = 'article_log'
+
+    PERMANENT_SESSION_LIFTIME = 60*60*2
 
