@@ -23,7 +23,7 @@ def login_page():
         print(current_user)
         print(current_user.__dir__())
         print(current_user.id, current_user.username)
-        return "Hello World222222"
+        return redirect('/article-view')
 
     form = LoginForm(request.form)
     if request.method == "POST":
@@ -35,7 +35,7 @@ def login_page():
                     if login_user(user):
                         session.permanent = True
                         session['username'] = user.username
-                        return "Hello world!!!"
+                        return redirect('/article-view')
                     else:
                         flash('unable to loing in')
                 else:

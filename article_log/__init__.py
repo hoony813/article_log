@@ -43,7 +43,7 @@ def create_app():
     flask_bcrypt.init_app(app)
 
     ## Blueprint
-    from article_log.controller import login_page
+    from article_log.controller import login_page,register, view_page
 
     from article_log.article_log_blueprint import article_log_blueprint
 

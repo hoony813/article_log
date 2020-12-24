@@ -9,11 +9,17 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <!-- JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
     <!-- 구글폰트 -->
     <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
@@ -21,7 +27,7 @@
     <style>
 
         div.jumbotron {
-            width: 900px;
+            width: 70%;
             margin: auto;
         }
 
@@ -39,12 +45,67 @@
             border: solid;
         }
 
+        .feed-frame {
+            margin: 1rem auto;
+            padding-top: 2rem !important;
+            padding-bottom: 2rem !important;
+        }
+
         .comment {
             color: blue;
             font-weight: bold;
         }
 
     </style>
+    <script>
+    $( function() {
+        jQuery.jQueryAlert = function (msg) {
+           var $messageBox = $.parseHTML('<div id="alertBox"></div>');
+           $("body").append($messageBox);
+
+           $($messageBox).dialog({
+               open: $($messageBox).append(msg),
+               title: "결과",
+               autoOpen: true,
+               modal: true,
+               buttons: {
+                   OK: function () {
+                       $(this).dialog("close");
+                       location.reload();
+                   }
+               }
+           });
+       };
+       });
+      function open_post_box(){
+        if($('#post-box').css('display') == 'block'){
+          $('#post-box').hide();
+          $('#btn-post-box').text('포스팅 박스 열기');
+        }
+        else{
+          $('#post-box').show();
+          $('#btn-post-box').text('포스팅 박스 닫기');
+        }
+      }
+      function posting(){
+        var url = $('#posting-url').val();
+        var comment = $('#posting-comment').val();
+
+        $.ajax({
+          type: 'POST',
+          url: '/article-view',
+          data: {'url':url,'comment':comment},
+          success: function(response) {
+            if(response['result'] == 'success'){
+              $.jQueryAlert('포스팅 성공');
+            }
+            else{
+              $.jQueryAlert('서버 오류');
+            }
+          }
+        })
+      }
+    </script>
   </head>
   <body>
     <div class="jumbotron">
@@ -52,20 +113,20 @@
       <p class="lead">글을 읽고 난 뒤 들었던 내 생각들. 단상. 나는 무엇을 읽고, 무엇을 생각했는가?</p>
       <hr class="my-4">
       <p class="lead">
-        <button type="button" class="btn btn-primary">포스팅 박스 열기</button>
+        <button type="button" class="btn btn-primary" onclick="open_post_box()" id="btn-post-box">포스팅 박스 닫기</button>
       </p>
     </div>
-    <div class="form-post">
+    <div class="form-post" id="post-box">
       <form>
         <div class="form-group">
-          <label for="exampleFormControlInput1">아티클 URL</label>
-          <input class="form-control" placeholder="" id="">
+          <label for="posting-url">아티클 URL</label>
+          <input class="form-control" id="posting-url" placeholder="">
         </div>
         <div class="form-group">
-          <label for="exampleFormControlTextarea1">간단 코멘트</label>
-          <textarea class="form-control" rows="2"></textarea>
+          <label for="posting-comment">간단 코멘트</label>
+          <textarea class="form-control" id="posting-comment" rows="2"></textarea>
         </div>
-        <button type="button" class="btn btn-primary">기사저장</button>
+        <button type="button" class="btn btn-primary" onclick="posting()">기사저장</button>
       </form>
     </div>
     <div class="card-columns card-post" id="post-cards">

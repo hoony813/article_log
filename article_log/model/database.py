@@ -18,7 +18,7 @@ class DB:
 
     @staticmethod
     def init_db():
-        from article_log.model import user
+        from article_log.model import user, article
 
         from article_log.model import Base
         Base.metadata.create_all(bind=DB.__engine)
