@@ -31,11 +31,13 @@
             margin: auto;
         }
 
-        div.card-columns{
-            width: 60%;
+        div.card-post{
+            width: 95%;
             margin: 10px auto 0 auto;
         }
-
+        div.card{
+          margin: 10px 10px 10px 10px;
+        }
         div.form-post {
             max-width: 500px;
             padding: 2rem;
@@ -105,6 +107,57 @@
           }
         })
       }
+      function get_posting() {
+        $('#cards-box').empty('');
+        $.ajax({
+          type: "GET",
+          url: "/article-post",
+          data: {},
+          success: function(response){
+            if(response['result'] == 'success'){
+              var cards = response['articles'];
+              console.log(cards);
+              for (let i = 0 ; i < cards.length; i++) {
+                var url = cards[i]['url'];
+                var comment = cards[i]['comment'];
+                var title = cards[i]['title'];
+                var image = cards[i]['image'];
+                var desc = cards[i]['desc'];
+
+                $('#post-cards').append(make_card(url,comment,title,image,desc));
+              }
+            }
+            else{
+                $('#post-cards').append(make_card('','','','',''))
+            }
+          }
+        })
+      }
+
+      function make_card(url,comment,title,image,description) {
+        var html_temp = '<div class="card">\
+        <div class="container">\
+          <div class="row">\
+            <div class="col">\
+              <img class="card-img-top" src="'+image+'" alt="Card image cap">\
+            </div>\
+            <div class="col">\
+              <div class="card-body">\
+                <h5 class="card-title" href='+url+' target="_blank">'+title+'</h5>\
+                <p class="card-text">'+description+'</p>\
+                <p class="card-text comment">'+comment+'</p>\
+              </div>\
+            </div>\
+          </div>\
+        </div>\
+      </div>';
+      return html_temp;
+      }
+
+      $( document ).ready(function() {
+          $('#post-cards').html('');
+          get_posting();
+      });
     </script>
   </head>
   <body>
@@ -129,37 +182,37 @@
         <button type="button" class="btn btn-primary" onclick="posting()">기사저장</button>
       </form>
     </div>
-    <div class="card-columns card-post" id="post-cards">
+    <div class="card-post" id="post-cards">
       <div class="card">
-        <img class="card-img-top" src="https://www.fodors.com/wp-content/uploads/2018/10/4_UltimateRome_PiazzaNavona-975x650.jpg" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">예를 들면 이렇게 카드가 나옵니다!!</h5>
-          <p class="card-text">여기에 기사 내용이 들어가겠죠</p>
-          <p class="card-text comment">여기엔 코멘트가 들어갑니다</p>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <img class="card-img-top" src="https://www.fodors.com/wp-content/uploads/2018/10/4_UltimateRome_PiazzaNavona-975x650.jpg" alt="Card image cap">
+            </div>
+            <div class="col">
+              <div class="card-body">
+                <h5 class="card-title">예를 들면 이렇게 카드가 나옵니다!!</h5>
+                <p class="card-text">여기에 기사 내용이 들어가겠죠</p>
+                <p class="card-text comment">여기엔 코멘트가 들어갑니다</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="card">
-        <img class="card-img-top" src="https://www.fodors.com/wp-content/uploads/2018/10/4_UltimateRome_PiazzaNavona-975x650.jpg" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">예를 들면 이렇게 카드가 나옵니다!!</h5>
-          <p class="card-text">여기에 기사 내용이 들어가겠죠</p>
-          <p class="card-text comment">여기엔 코멘트가 들어갑니다</p>
-        </div>
-      </div>
-      <div class="card">
-        <img class="card-img-top" src="https://www.fodors.com/wp-content/uploads/2018/10/4_UltimateRome_PiazzaNavona-975x650.jpg" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">예를 들면 이렇게 카드가 나옵니다!!</h5>
-          <p class="card-text">여기에 기사 내용이 들어가겠죠</p>
-          <p class="card-text comment">여기엔 코멘트가 들어갑니다</p>
-        </div>
-      </div>
-      <div class="card">
-        <img class="card-img-top" src="https://www.fodors.com/wp-content/uploads/2018/10/4_UltimateRome_PiazzaNavona-975x650.jpg" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">예를 들면 이렇게 카드가 나옵니다!!</h5>
-          <p class="card-text">여기에 기사 내용이 들어가겠죠</p>
-          <p class="card-text comment">여기엔 코멘트가 들어갑니다</p>
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <img class="card-img-top" src="https://www.fodors.com/wp-content/uploads/2018/10/4_UltimateRome_PiazzaNavona-975x650.jpg" alt="Card image cap">
+            </div>
+            <div class="col">
+              <div class="card-body">
+                <h5 class="card-title">예를 들면 이렇게 카드가 나옵니다!!</h5>
+                <p class="card-text">여기에 기사 내용이 들어가겠죠</p>
+                <p class="card-text comment">여기엔 코멘트가 들어갑니다</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

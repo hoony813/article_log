@@ -20,9 +20,6 @@ def close_db_session(exception=None):
 def login_page():
     session_key = request.cookies.get(current_app.config['SESSION_COOKIE_NAME'])
     if session.sid == session_key and session.__contains__('username'):
-        print(current_user)
-        print(current_user.__dir__())
-        print(current_user.id, current_user.username)
         return redirect('/article-view')
 
     form = LoginForm(request.form)

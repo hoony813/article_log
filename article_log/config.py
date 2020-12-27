@@ -1,8 +1,8 @@
 import os
 
 class ArticleLogConfig(object):
-    TESTING = False
-    DEBUG = False
+    TESTING = True
+    DEBUG = True
 
     SECRET_KEY = os.urandom(24)
 
